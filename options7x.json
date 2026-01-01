@@ -1,0 +1,18 @@
+[
+  "--ui-language",
+  "es",
+  "--priority",
+  "lower",
+  "--subtitle-tracks",
+  "XXXXXXXXXXXXXXXX",
+  "--no-chapters",
+  "--default-track-flag",
+  "XXXXXXXXXXXXXXXX:yes",
+  "--default-track-flag",
+  "XXXXXXXXXXXXXXXX:yes",
+  "(",
+  "XXXXXXXXXXXXXXXX",
+  ")",
+  "--track-order",
+  "0:0,0:XXXXXXXXXXXXXXXX,0:XXXXXXXXXXXXXXXX"
+]

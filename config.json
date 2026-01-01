@@ -1,0 +1,38 @@
+{
+    "video_audio": "C:\\Users\\Walter Rivas\\Documents\\Videos\\Konosuba",
+
+    "video": {
+        "track": "0"
+    },
+
+    "audio": {
+        "track": "1",
+        "time": "0"
+    },
+
+    "subtitle": {
+        "path": "F:\\Kono Subarashii Sekai ni Shukufuku wo!\\4.3.-Kono Subarashii Sekai ni Shukufuku wo! 3 Bonus Stage",
+        "track": "2",
+        "time": "1000"
+    },
+
+    "attachments": "F:\\Kono Subarashii Sekai ni Shukufuku wo!\\4.3.-Kono Subarashii Sekai ni Shukufuku wo! 3 Bonus Stage",
+
+
+
+
+    "video_audio_2": "",
+
+    "audio_2": {
+        "track": "2",
+        "time": "0"
+    },
+
+    "subtitle_2": {
+        "path": "",
+        "track": "5",
+        "time": "0"
+    },
+
+    "output": "C:\\Users\\Walter Rivas\\Documents\\Videos\\Konosuba\\Nueva carpeta"
+}
