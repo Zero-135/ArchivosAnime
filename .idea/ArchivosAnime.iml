@@ -7,5 +7,7 @@
     <orderEntry type="jdk" jdkName="Python 3.14 (ArchivosAnime)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="MyAnimeList" />
+    <orderEntry type="module" module-name="Miscelanea" />
+    <orderEntry type="module" module-name="Pokemon Base Sky" />
   </component>
 </module>

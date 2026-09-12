@@ -7,15 +7,62 @@ import json
 
 def check():
     global option, optionSub
-    optionStringSub = input("Elija su pista de Extraccion(Por defecto 2) ").rstrip().lstrip()
-    optionSub = int('2' if optionStringSub == "" else optionStringSub)
     option = int(input(
         f'\nmkvextractor (MKVToolNix : mkvextract)\
         \n|-- 1 : Extraer Tracks\
         \n|-- 2 : Listar Tracks con Nombres\
+        \n|-- 3 : Extraer Chapters\
         \n\
         \nextractMode: '
     ))
+
+    if option in (1, 2):
+        optionStringSub = input("Elija su pista de Extraccion(Por defecto 2) ").rstrip().lstrip()
+        optionSub = int('2' if optionStringSub == "" else optionStringSub)
+    else:
+        optionSub = 0
+
+
+def get_extension_for_codec(codec):
+    """
+    Devuelve la extensión adecuada según el codec de la pista,
+    soportando tanto subtítulos como audio.
+    """
+    match codec:
+        # --- Subtítulos ---
+        case "SubStationAlpha":
+            return ".ass"
+        case "SubRip/SRT":
+            return ".srt"
+        case "HDMV PGS":
+            return ".sup"
+        case "VobSub":
+            return ".idx"  # nota: VobSub genera .idx + .sub, mkvextract maneja ambos
+
+        # --- Audio ---
+        case "AAC":
+            return ".aac"
+        case "MP3":
+            return ".mp3"
+        case "AC-3" | "AC3":
+            return ".ac3"
+        case "E-AC-3" | "EAC3":
+            return ".eac3"
+        case "DTS":
+            return ".dts"
+        case "FLAC":
+            return ".flac"
+        case "Vorbis":
+            return ".ogg"
+        case "Opus":
+            return ".opus"
+        case "PCM":
+            return ".wav"
+        case "TrueHD":
+            return ".thd"
+
+        case _:
+            return ""
 
 
 def Options(roothVideoAudio):
@@ -52,15 +99,11 @@ def Options(roothVideoAudio):
 
                     json_object = json.loads(resultado.stdout)
                     codec = checkTrackProperties(json_object, ["tracks", optionSub, "codec"])
-                    extension = ""
+                    extension = get_extension_for_codec(codec)
 
-                    match codec:
-                        case "SubStationAlpha":
-                            extension = ".ass"
-                        case "SubRip/SRT":
-                            extension = ".srt"
-                        case "HDMV PGS":
-                            extension = ".sup"
+                    if extension == "":
+                        print(f"⚠ ADVERTENCIA: Codec '{codec}' no reconocido para la pista "
+                              f"{optionSub} en '{name}'. Se extraerá sin extensión.")
 
                     resultado = subprocess.run(
                         r'mkvextract.exe tracks "' + pathVA + '" ' +
@@ -129,6 +172,46 @@ def Options(roothVideoAudio):
             except NameError:
                 print(NameError)
 
+        case 3:
+            os.makedirs(roothChapters, exist_ok=True)
+
+            for fileVA in os.scandir(roothVideoAudio):
+                name = fileVA.name
+                path = fileVA.path
+
+                if (name.find(".mkv") == -1 and name.find(".mp4") == -1 and name.find(".avi") == -1
+                        and not os.path.isdir(path)):
+                    continue
+
+                if os.path.isdir(path):
+                    if intoFolders:
+                        Options(path)
+                    else:
+                        continue
+                else:
+                    pathVA = roothVideoAudio + "\\" + name
+                    pathVA = pathVA.replace('\\', '\\\\')
+                    fileResult = roothChapters + "\\" + Path(fileVA).stem
+                    fileResult = fileResult.replace('\\', '\\\\')
+
+                    resultado = subprocess.run(
+                        r'mkvextract.exe chapters "' + pathVA + '"',
+                        capture_output=True,
+                        text=True,
+                        encoding='utf-8'
+                    )
+
+                    if resultado.returncode != 0 or not resultado.stdout.strip():
+                        print(f"⚠ ADVERTENCIA: '{name}' no tiene chapters o fallo la extraccion.")
+                        if resultado.stderr:
+                            print(resultado.stderr.strip())
+                        continue
+
+                    with open(fileResult + '_chapters.xml', 'w', encoding='utf-8') as chapterFile:
+                        chapterFile.write(resultado.stdout)
+
+                    print(f"✔ Chapters extraidos: {name}")
+
 
 def getExcel():
     global listaArchivosTotal, nombreArchivo
@@ -179,9 +262,10 @@ def main():
 option = 0
 optionSub = 0
 intoFolders = False
-rooth = r"C:\Users\Walter Rivas\Documents\FilesTransform"
+rooth = r"C:\Users\win11\Documents\FilesTransform"
 roothVideoAudio = rooth + r"\1.-Video-Audio"
 roothSubFull = rooth + r"\3.-Sub-Full"
+roothChapters = rooth + r"\5.-Attachments"
 roothResult = rooth + r"\6.-Result"
 nombreArchivo = roothResult + r"\Archivos.xlsx"
 listaArchivosTotal = list()

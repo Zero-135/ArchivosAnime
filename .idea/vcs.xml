@@ -2,6 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Miscelanea" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../MyAnimeList" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Pokemon Base Sky" vcs="Git" />
   </component>
 </project>

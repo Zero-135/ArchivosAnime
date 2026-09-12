@@ -8,7 +8,7 @@ def run(cmd):
     subprocess.run(cmd, check=True)
 
 
-def list_files(path, extensions=("mkv", "mp4", "ass", "srt")):
+def list_files(path, extensions=("mkv", "mp4", "ass", "srt", "aac")):
     """Devuelve SOLO archivos (no carpetas), filtrados por extensión."""
     if not path or not os.path.exists(path):
         return []
@@ -147,6 +147,7 @@ def main():
                 "--no-attachments",
                 "--no-global-tags",
                 "--default-track-flag", f"{atrack_2}:no",
+                "--forced-display-flag", f"{atrack_2}:no",
                 os.path.join(video_audio_path_2, listAudioLatino[i]),
             ]
             track_order.append(f"3:{atrack_2}")

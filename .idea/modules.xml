@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ArchivosAnime.iml" filepath="$PROJECT_DIR$/.idea/ArchivosAnime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Miscelanea/.idea/Miscelanea.iml" filepath="$PROJECT_DIR$/../Miscelanea/.idea/Miscelanea.iml" />
       <module fileurl="file://$PROJECT_DIR$/../MyAnimeList/.idea/MyAnimeList.iml" filepath="$PROJECT_DIR$/../MyAnimeList/.idea/MyAnimeList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Pokemon Base Sky/.idea/Pokemon Base Sky.iml" filepath="$PROJECT_DIR$/../Pokemon Base Sky/.idea/Pokemon Base Sky.iml" />
     </modules>
   </component>
 </project>
